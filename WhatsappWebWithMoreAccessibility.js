@@ -575,7 +575,7 @@ function activeEvents() {
             e.preventDefault();
             e.stopPropagation();
             el = document.getElementById('pane-side').querySelector('[tabindex="-1"]');
-            let listLabel = document.getElementById("pane-side").querySelector('[data-label="Lista de conversas"]');
+            let listLabel = document.getElementById("pane-side").querySelector('[data-label]');
             listLabel.setAttribute("aria-label", listLabel.getAttribute("data-label"));
             
         }
