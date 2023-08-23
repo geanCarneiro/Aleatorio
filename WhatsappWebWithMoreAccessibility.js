@@ -678,6 +678,7 @@ function activeEvents() {
                 el.addEventListener("focus", activeButtonToRecordEvent);
                 listeners.push({ element: el, listener: footerMessageBoxListener, listenerType: "keyup" });
                 listeners.push({ element: el, listener: activeButtonToRecordEvent, listenerType: "focus" });
+            }
             
         }
         else if (e.altKey && e.keyCode == 65) {
