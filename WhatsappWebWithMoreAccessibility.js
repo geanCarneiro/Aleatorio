@@ -666,19 +666,19 @@ function activeEvents() {
         else if (e.altKey && e.keyCode == 69) {
             e.preventDefault();
             e.stopPropagation();
-            el = document.querySelector('footer');
+          	let contextMenu = document.querySelector('.message-in[tabIndex="0"]').querySelector('[aria-label="Menu de contexto"]');
+
+            if (contextMenu) {
+                contextMenu.click();
+                setTimeout(function () {
+                    document.querySelector('[aria-label="Responder"]').click();
+                }, 500);
+            }
+          	el = document.querySelector('footer');
             el.setAttribute("role", "region");
             el.setAttribute("aria-label", getActiveConversationTitle());
             el = el ? el.querySelector('[contenteditable="true"]') : null;
-            if (el) {
-                activeConversationTitle = getActiveConversationTitle();
-                activeConversationTitle ? el.setAttribute("aria-label", phrases.WRITE_MESSAGE + activeConversationTitle) : el.setAttribute("aria-label", phrases.WRITE_MESSAGE_WITHOUT_CONTACT_NAME);
-
-                el.addEventListener("keyup", footerMessageBoxListener, false);
-                el.addEventListener("focus", activeButtonToRecordEvent);
-                listeners.push({ element: el, listener: footerMessageBoxListener, listenerType: "keyup" });
-                listeners.push({ element: el, listener: activeButtonToRecordEvent, listenerType: "focus" });
-            }
+            
         }
         else if (e.altKey && e.keyCode == 65) {
             e.preventDefault();
@@ -718,9 +718,13 @@ function activeEvents() {
             if (spanAriaLive) {
                 let conversationStatus = document.getElementById("main") ? document.getElementById("main").querySelector("header") : null;
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('[dir="auto"]') : null;
-                conversationStatus = conversationStatus.textContent;
+                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
+                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
+                conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
+                conversationStatus = conversationStatus ? conversationStatus.querySelector('span[title]') : null;
+                conversationStatus = conversationStatus ? conversationStatus.getAttribute("title") : null;
                 conversationStatus = conversationStatus && conversationStatus.indexOf(",") == -1 ? conversationStatus : null;
-                conversationStatus = conversationStatus && conversationStatus.indexOf("cli") == -1 ? conversationStatus : null;
+                conversationStatus = conversationStatus && conversationStatus.indexOf("cli") != -1 ? null : conversationStatus;
                 let unreadMessages = localStorage.getItem(getActiveConversationTitle() + "unread") ? localStorage.getItem(getActiveConversationTitle() + "unread") + " " + phrases.UNREAD_MESSAGE : "";
                 //spanAriaLive.setAttribute("role","alert");
                 spanAriaLive.textContent = conversationStatus ? unreadMessages + " " + activeConversationTitle + " (" + conversationStatus + ") " : unreadMessages + " " + activeConversationTitle;
