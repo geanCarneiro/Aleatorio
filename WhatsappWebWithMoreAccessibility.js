@@ -575,7 +575,7 @@ function activeEvents() {
             e.preventDefault();
             e.stopPropagation();
             el = document.getElementById('pane-side').querySelector('[tabindex="-1"]');
-            let listLabel = document.getElementById("pane-side").querySelector('[aria-label="Lista de conversas"]');
+            let listLabel = document.getElementById("pane-side").querySelector('[data-label="Lista de conversas"]');
             listLabel.setAttribute("aria-label", listLabel.getAttribute("data-label"));
             
         }
@@ -666,7 +666,7 @@ function activeEvents() {
         else if (e.altKey && e.keyCode == 69) {
             e.preventDefault();
             e.stopPropagation();
-          	let contextMenu = document.querySelector('.message-in[tabIndex="0"]').querySelector('[aria-label="Menu de contexto"]');
+          	let contextMenu = document.querySelector('.message-in[tabIndex="0"], .message-out[tabIndex="0"]').querySelector('[aria-label="Menu de contexto"]');
 
             if (contextMenu) {
                 contextMenu.click();
