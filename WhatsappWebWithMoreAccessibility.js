@@ -270,7 +270,7 @@ function removeAccessibilityElements() {
 }
 function getActiveConversationTitle() {
     let main = document.getElementById('main');
-    activeConversationTitle = main ? main.querySelector('[data-testid="conversation-info-header-chat-title"]') : "";
+    activeConversationTitle = main ? main.querySelector("header").querySelector('[dir="auto"]') : "";
     activeConversationTitle = activeConversationTitle ? activeConversationTitle.textContent : "";
     return activeConversationTitle;
 
