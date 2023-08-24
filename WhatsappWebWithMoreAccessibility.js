@@ -1455,10 +1455,7 @@ const activateContextMenu = function (msg) {
             e.preventDefault();
             e.stopPropagation();
             ("pressionou");
-            msg.querySelector('[data-testid="down-context"]') ? msg.querySelector('[data-testid="down-context"]').click() : null;
-            setTimeout(() => {
-                document.querySelector('[aria-label="Reagir"]') ? document.querySelector('[aria-label="Reagir"]').click() : null;
-            }, 100);
+            msg.querySelector('[aria-label="Reagir"]') ? msg.querySelector('[aria-label="Reagir"]').click() : null;
 
         }
 
@@ -1470,10 +1467,7 @@ const activateContextMenu = function (msg) {
             //data-testid="content"
             //data-testid="content"
             //data-testid="content">Cancelar
-            msg.querySelector('[data-testid="down-context"]') ? msg.querySelector('[data-testid="down-context"]').click() : null;
-            let contextMenuButton = document.querySelector('[aria-label="Menu de contexto"]');
-
-            
+            let contextMenuButton = msg.querySelector('[aria-label="Menu de contexto"]');
             if (contextMenuButton) {
                 contextMenuButton.click();
                 setTimeout(function () {
@@ -1498,18 +1492,14 @@ const activateContextMenu = function (msg) {
             e.preventDefault();
             e.stopPropagation();
             ("pressionou");
-            msg.querySelector('[data-testid="down-context"]') ? msg.querySelector('[data-testid="down-context"]').click() : null;
-            setTimeout(() => {
-                let contextMenuButton = document.querySelector('[aria-label="Menu de contexto"]');
-
-                if (contextMenuButton) {
-                    contextMenuButton.click();
-                    setTimeout(function () {
-                        document.querySelector('[aria-label="Responder"]').click();
-                    }, 500);
-                }
-                document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
-            }, 100);
+            let contextMenuButton = msg.querySelector('[aria-label="Menu de contexto"]');
+            if (contextMenuButton) {
+                contextMenuButton.click();
+                setTimeout(function () {
+                    document.querySelector('[aria-label="Responder"]').click();
+                }, 200);
+            }
+            document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
 
         }
         if (e.altKey && e.key == "p") {
