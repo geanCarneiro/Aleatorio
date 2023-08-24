@@ -1471,14 +1471,26 @@ const activateContextMenu = function (msg) {
             //data-testid="content"
             //data-testid="content">Cancelar
             msg.querySelector('[data-testid="down-context"]') ? msg.querySelector('[data-testid="down-context"]').click() : null;
+            let contextMenuButton = document.querySelector('[aria-label="Menu de contexto"]');
 
-            setTimeout(() => {
-                document.querySelector('[data-testid="mi-msg-delete"]') && document.querySelector('[data-testid="mi-msg-delete"]').querySelector('[role="button"]') ? document.querySelector('[data-testid="mi-msg-delete"]').querySelector('[role="button"]').click() : null;
-            }, 100);
-            setTimeout(() => {
-                document.querySelector('[data-testid="popup-contents"]') && document.querySelector('[data-testid="content"]') ? document.querySelector('[data-testid="popup-contents"]').setAttribute("tabindex", "-1") : null;
-                document.querySelector('[data-testid="popup-contents"]') && document.querySelector('[data-testid="content"]') ? document.querySelector('[data-testid="popup-contents"]').focus() : null;
-            }, 200);
+            
+            if (contextMenuButton) {
+                contextMenuButton.click();
+                setTimeout(function () {
+                    document.querySelector('[aria-label="Apagar"]').click();
+                    setTimeout(() => {
+                        let dialogContent = document.querySelector('[role="dialog"]');
+                        dialogContent = dialogContent ? dialogContent.firstChild : null;
+                        dialogContent = dialogContent ? dialogContent.firstChild : null;
+                        dialogContent = dialogContent ? dialogContent.firstChild : null;
+                        if(dialogContent) {
+                            dialogContent.setAttribute("tabindex", "-1");
+                            dialogContent.focus();
+                        }
+                    }, 500);
+                }, 500);
+            }
+            
 
         }
 
