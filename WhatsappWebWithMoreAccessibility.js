@@ -583,25 +583,85 @@ function activeEvents() {
             e.preventDefault();
             e.stopPropagation();
             ("chamado mensagem");
-            el = document.querySelector('[class*="message-in"], [class*="message-out"]');
-            el = el ? el.parentNode.parentNode.parentNode.querySelector('span[aria-live]') : null;
-            if(el) {
-                el = el.parentNode;
-            } else {
-                el = document.querySelector('footer');
-                el.setAttribute("role", "region");
-                el.setAttribute("aria-label", getActiveConversationTitle());
-                el = el ? el.querySelector('[contenteditable="true"]') : null;
-                if (el) {
-                    activeConversationTitle = getActiveConversationTitle();
-                    activeConversationTitle ? el.setAttribute("aria-label", phrases.WRITE_MESSAGE + activeConversationTitle) : el.setAttribute("aria-label", phrases.WRITE_MESSAGE_WITHOUT_CONTACT_NAME);
+            el = document.getElementById('main');
+            if (el && el.querySelector('[data-icon]') && el.querySelector('[data-icon]').getAttribute("data-icon").indexOf("user") != -1) {
+                let statusContainer = el.querySelector('header');
+                statusContainer = statusContainer ? statusContainer.querySelector('[dir="auto"]') : null;
+                statusContainer = statusContainer ? statusContainer.parentNode : null;
+                statusContainer = statusContainer ? statusContainer.parentNode : null;
+                statusContainer = statusContainer ? statusContainer.parentNode : null;
+                statusContainer ? statusContainer.setAttribute("aria-live", "polite") : null;
 
-                    el.addEventListener("keyup", footerMessageBoxListener, false);
-                    el.addEventListener("focus", activeButtonToRecordEvent);
-                    listeners.push({ element: el, listener: footerMessageBoxListener, listenerType: "keyup" });
-                    listeners.push({ element: el, listener: activeButtonToRecordEvent, listenerType: "focus" });
-                }
             }
+            /*
+                            el = el ? el.querySelector('[role="region"]') : null;
+                            if (el) {
+                                el.addEventListener("keydown", function (e) {
+            
+                                    if (e.keyCode == 39) {
+                                        setTimeout(function () {
+                                            if (document.querySelector('[data-animate-dropdown-item="true"]')) {
+                                                let ul = document.querySelector('[data-animate-dropdown-item="true"]').parentNode;
+                                                ul.querySelectorAll('li div[role="button"]').forEach(function (elem) {
+                                                    elem.parentNode.addEventListener("keydown", function (e2) {
+                                                        if (e2.keyCode == 13) {
+                                                            setTimeout(function () {
+                                                                dialogToDeleteMessage();
+                                                                if (document.querySelector('[data-icon="star-btn"]')) {
+                                                                    let container = document.querySelector('[data-icon="star-btn"]').parentNode.parentNode;
+                                                                    container.querySelector('[data-icon="x"]') ? container.querySelector('[data-icon="x"]').setAttribute("aria-label", phrases.CLOSE) : false;
+                                                                    container.setAttribute("tabindex", "-1");
+                                                                    container.setAttribute("role", "dialog");
+                                                                    container.setAttribute("aria-label", phrases.CONTAINER_HEADING);
+                                                                    container.setAttribute("data-dialog-sr-only", "dialog");
+                                                                    let containerHeading = container.querySelector('[data-sr-only="container-heading"]');
+                                                                    if (!containerHeading) {
+                                                                        containerHeading = document.createElement("h3");
+                                                                        containerHeading.textContent = phrases.CONTAINER_HEADING;
+                                                                        containerHeading.setAttribute("data-sr-only", "container-heading");
+                                                                        containerHeading = setClassSROnly(containerHeading);
+                                                                        container.insertBefore(containerHeading, container.firstChild);
+                                                                    }
+                                                                    selectedMessages();
+                                                                    container.addEventListener("keydown", function (evc) {
+                                                                        if (evc.keyCode == 9) {
+                                                                            evc.preventDefault();
+                                                                            evc.stopPropagation();
+                                                                        }
+                                                                    }, false);
+                                                                    container.focus();
+                                                                    updateCheckedMessage();
+                                                                    document.getElementById("main") ? document.getElementById("main").addEventListener("keydown", updateCheckedMessage, false) : false;
+                                                                    container.addEventListener("click", function (ec) {
+                                                                        setTimeout(function () {
+                                                                            document.addEventListener("keydown", updateCheckedContact, false);
+                                                                            dialogToDeleteMessage();
+                                                                            document.querySelector('button, [role="button"]').focus();
+                                                                        }, 1000);
+            
+                                                                    }, false);
+            
+            
+                                                                }
+                                                            }, 500);
+                                                        }
+                                                    }, false);
+                                                });
+                                            }
+                                        }, 200);
+            
+                                    }
+            
+                                    updateMessage();
+                                }, false);
+            
+                            }
+                            */
+            localStorage.setItem(getActiveConversationTitle() + "unread", "");
+            el = document.getElementById('main');
+            el = el ? el.querySelectorAll('[class*="message-in"], [class*="message-out"]') : null;
+            el = el && el.length > 0 ? el[el.length - 1] : null;
+            el = el && el.parentElement ? el.parentElement : null;
         }
         else if (e.altKey && e.keyCode == 69) {
             e.preventDefault();
@@ -1388,7 +1448,7 @@ const activateContextMenu = function (msg) {
             e.preventDefault();
             e.stopPropagation();
             ("pressionou");
-            let UnreadMessages = document.querySelector('.message-in').parentNode.parentNode.parentNode.querySelector('span[aria-live]');
+            msg.querySelector('[data-testid="down-context"]') ? msg.querySelector('[data-testid="down-context"]').click() : null;
 
         }
         if (e.altKey && e.key == "q") {
