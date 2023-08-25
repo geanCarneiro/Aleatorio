@@ -584,7 +584,7 @@ function activeEvents() {
             e.stopPropagation();
             ("chamado mensagem");
             el = document.querySelector('[class*="message-in"], [class*="message-out"]');
-            el = el.parentNode.parentNode.parentNode.querySelector('span[aria-live]');
+            el = el ? el.parentNode.parentNode.parentNode.querySelector('span[aria-live]') : null;
             if(el) {
                 el = el.parentNode;
             } else {
