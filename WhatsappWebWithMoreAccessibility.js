@@ -1466,8 +1466,9 @@ const activateContextMenu = function (msg) {
                     let contextMenu = document.querySelector('#app').querySelector('span > [role="application"]');
                     // se o menu tiver mais que 6 opções, provavelmente é uma mensagem no grupo.
                     // e apenas a mensagem recebida tem a função
-                    if(contextMenu.length > 6 && msg.classList.contains("message-in")) {
-                        contextMenu.querySelectorAll('[role="button"]')[1].click();
+                    let opts = contextMenu.querySelectorAll('[role="button"]');
+                    if(opts.length > 6 && msg.classList.contains("message-in")) {
+                        opts[1].click();
                         setTimeout(() => {
                             document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
                         }, 200)
