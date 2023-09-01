@@ -1311,13 +1311,15 @@ const activateContextMenu = function (msg) {
             //data-testid="content"
             //data-testid="content"
             //data-testid="content">Cancelar
-            let btnOptions = msg.querySelectorAll('[role="button"]');
-            let contextMenuButton = btnOptions[btnOptions.length-2];
+            let contextMenuButton = msg.querySelector('[role="button"] > [data-icon="down-context"]');
+            contextMenuButton = contextMenuButton ? contextMenuButton.parentNode : null;
             if (contextMenuButton) {
                 contextMenuButton.click();
                 setTimeout(function () {
                     let contextMenu = document.querySelector('#app').querySelector('span > [role="application"]');
-                    contextMenu.querySelectorAll('[role="button"]')[5].click();
+                    // presupoe que apagar sempre será a ultima opcao
+                    let opcoes = contextMenu.querySelectorAll('[role="button"]');
+                    opcoes[opcoes.length-1].click();
                     setTimeout(() => {
                         let dialogContent = document.querySelector('[role="dialog"]');
                         dialogContent = dialogContent ? dialogContent.firstChild : null;
@@ -1336,8 +1338,8 @@ const activateContextMenu = function (msg) {
             e.preventDefault();
             e.stopPropagation();
             ("pressionou");
-            let btnOptions = msg.querySelectorAll('[role="button"]');
-            let contextMenuButton = btnOptions[btnOptions.length-2];
+            let contextMenuButton = msg.querySelector('[role="button"] > [data-icon="down-context"]');
+            contextMenuButton = contextMenuButton ? contextMenuButton.parentNode : null;
             if (contextMenuButton) {
                 contextMenuButton.click();
                 setTimeout(function () {
@@ -1354,8 +1356,8 @@ const activateContextMenu = function (msg) {
             e.preventDefault();
             e.stopPropagation();
             ("pressionou");
-            let btnOptions = msg.querySelectorAll('[role="button"]');
-            let contextMenuButton = btnOptions[btnOptions.length-2];
+            let contextMenuButton = msg.querySelector('[role="button"] > [data-icon="down-context"]');
+            contextMenuButton = contextMenuButton ? contextMenuButton.parentNode : null;
             if (contextMenuButton) {
                 contextMenuButton.click();
                 setTimeout(function () {
