@@ -1370,6 +1370,14 @@ const activateContextMenu = function (msg) {
                         let contextMenu = document.querySelector('#app').querySelector('span > [role="application"]');
                         let opcoes = contextMenu.querySelectorAll('[role="button"]');
                         opcoes[opcoes.length-2].click();
+                        setTimeout(() => {
+                            let dialogContent = document.querySelector('[role="dialog"]');
+                            dialogContent = dialogContent.querySelector("[contenteditable='true']")
+                            if(dialogContent) {
+                                dialogContent.setAttribute("tabindex", "-1");
+                                dialogContent.focus();
+                            }
+                        }, 200);
                     }, 200);
                 }
                 document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
