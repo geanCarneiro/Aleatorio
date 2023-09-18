@@ -1352,6 +1352,30 @@ const activateContextMenu = function (msg) {
             document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
 
         }
+
+        if (e.altKey && e.key == "d") {
+            // filtrar apenas os cenarios que a opção aparece
+            if (msg.classList.contains("message-out")
+                && !msg.querySelector("img")
+                && !msg.querySelector("[data-icon='audio-play']")
+                && !msg.querySelector("[data-icon='audio-download']")) {
+                e.preventDefault();
+                e.stopPropagation();
+                ("pressionou");
+                let contextMenuButton = msg.querySelector('[role="button"] > [data-icon="down-context"]');
+                contextMenuButton = contextMenuButton ? contextMenuButton.parentNode : null;
+                if (contextMenuButton) {
+                    contextMenuButton.click();
+                    setTimeout(function () {
+                        let contextMenu = document.querySelector('#app').querySelector('span > [role="application"]');
+                        let opcoes = contextMenu.querySelectorAll('[role="button"]');
+                        opcoes[opcoes.length-2].click();
+                    }, 200);
+                }
+                document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
+            }
+
+        }
         if (e.altKey && e.key == "p") {
             e.preventDefault();
             e.stopPropagation();
