@@ -1374,13 +1374,12 @@ const activateContextMenu = function (msg) {
                             let dialogContent = document.querySelector('[role="dialog"]');
                             dialogContent = dialogContent.querySelector("[contenteditable='true']")
                             if(dialogContent) {
-                                msg.setAttribute("tabindex", "-1");
+                                msg.setAttribute("tabIndex", "0");
                                 dialogContent.focus();
                             }
                         }, 200);
                     }, 200);
                 }
-                document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 69, altKey: true }));
             }
 
         }
