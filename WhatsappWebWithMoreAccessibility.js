@@ -1374,7 +1374,7 @@ const activateContextMenu = function (msg) {
                             let dialogContent = document.querySelector('[role="dialog"]');
                             dialogContent = dialogContent.querySelector("[contenteditable='true']")
                             if(dialogContent) {
-                                dialogContent.setAttribute("tabindex", "-1");
+                                msg.setAttribute("tabindex", "-1");
                                 dialogContent.focus();
                             }
                         }, 200);
