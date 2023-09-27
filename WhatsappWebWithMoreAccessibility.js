@@ -739,7 +739,7 @@ function activeEvents() {
 
             document.getElementById("pane-side").contains(e.target) ? getUnreadMessages() : false;
             addClickOnElementsIntoMessage(e);
-            replaceContactPhone();
+            setTimeout(() => replaceContactPhone(), 100);
             addFooterButtonLabels();
             updateMessage();
         }
