@@ -1362,6 +1362,17 @@ const activateContextMenu = function (msg) {
                 e.preventDefault();
                 e.stopPropagation();
                 ("pressionou");
+                
+                const observer = new MutationObserver(function(mutations_list) {
+                    mutations_list.forEach(function(mutation) {
+                        mutation.removedNodes.forEach(function(removed_node) {
+                            if(removed_node.getAttribute("role") == 'dialog') {
+                                msg.focus()
+                                observer.disconnect();
+                            }
+                        });
+                    });
+                });
                 let contextMenuButton = msg.querySelector('[role="button"] > [data-icon="down-context"]');
                 contextMenuButton = contextMenuButton ? contextMenuButton.parentNode : null;
                 if (contextMenuButton) {
@@ -1372,9 +1383,9 @@ const activateContextMenu = function (msg) {
                         opcoes[opcoes.length-2].click();
                         setTimeout(() => {
                             let dialogContent = document.querySelector('[role="dialog"]');
+                            observer.observe(dialogContent.parentNode, { subtree: false, childList: true });
                             dialogContent = dialogContent.querySelector("[contenteditable='true']")
                             if(dialogContent) {
-                                msg.setAttribute("tabIndex", "0");
                                 dialogContent.focus();
                             }
                         }, 200);
