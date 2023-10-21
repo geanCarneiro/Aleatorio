@@ -1049,29 +1049,22 @@ function replaceContactPhoneInMention(msg) {
 function replaceContactPhone() {
 
     document.getElementById("main").querySelectorAll('[class*="message-in"], [class*="message-out"]').forEach(function (msg) {
-        msg.removeAttribute("aria-label");
-        msg.querySelectorAll('[role="button"]').forEach((aria) => {
-            // se tiver mais de 3 classes com certeza é pra abrir dados.
-            // a quantidade de 3 foi escolhido pra ter uma folga pra pequenas variações
-            if(aria.classList.length > 3) {  
-                let realText = aria.getAttribute('aria-label');
-                let plusCharPos = realText ? realText.indexOf('+') : -1;
-                let dummy = msg.querySelector('span[id]');
-                if(plusCharPos > -1 && !dummy) {
-                    
-                    idDummy = "msg" + Math.round(Math.random()*1000);
-                    dummy = document.createElement("span");
-                    dummy.setAttribute("id", idDummy);
-                    dummy.id = idDummy;
-                    dummy.style.display = 'none';
-                    dummy.ariaLabel = realText.substring(0, plusCharPos);
-                    msg.append(dummy);
-                    aria.setAttribute('aria-labelledby', idDummy);
-                }
-            } else if(aria.getAttribute('testid') == 'author') {
-                aria.setAttribute('aria-hidden', true);
-            }
-        });
+        let realText = msg.getAttribute('aria-label');
+        let plusCharPos = realText ? realText.indexOf('+') : -1;
+        let dummy = msg.querySelector('span[id]');
+        
+        // pré supõe que o formato do telefone desconhecido sempre será
+        // codigo do pais + DDD + numero de telefone
+        if(plusCharPos > -1 && !dummy) {
+            let idDummy = "msg" + Math.round(Math.random()*1000);
+            dummy = document.createElement("span");
+            dummy.id = idDummy;
+            dummy.style.display = 'none';
+            dummy.ariaLabel = realText.substring(0, plusCharPos) + realText.substring(realText.indexOf(' ', plusCharPos+10));
+            msg.append(dummy);
+            msg.setAttribute('aria-labelledby', idDummy);
+        }
+        
     })
 
 }
