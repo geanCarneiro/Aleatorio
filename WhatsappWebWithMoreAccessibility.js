@@ -1049,6 +1049,7 @@ function replaceContactPhoneInMention(msg) {
 function replaceContactPhone() {
 
     document.getElementById("main").querySelectorAll('[class*="message-in"], [class*="message-out"]').forEach(function (msg) {
+        msg.removeAttribute("aria-label");
         msg.querySelectorAll('[role="button"]').forEach((aria) => {
             // se tiver mais de 3 classes com certeza é pra abrir dados.
             // a quantidade de 3 foi escolhido pra ter uma folga pra pequenas variações
