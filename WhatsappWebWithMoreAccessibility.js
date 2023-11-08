@@ -653,7 +653,6 @@ function activeEvents() {
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('[dir="auto"]') : null;
                 conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
                 conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
-                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
                 conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('span[title]') : null;
                 conversationStatus = conversationStatus ? conversationStatus.getAttribute("title") : null;
