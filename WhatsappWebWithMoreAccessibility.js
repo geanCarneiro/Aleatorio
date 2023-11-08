@@ -653,7 +653,16 @@ function activeEvents() {
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('[dir="auto"]') : null;
                 conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
                 conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
+                let conversationStatusTemp = conversationStatus;
+                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
                 conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
+
+                if  (conversationStatus && conversationStatus.nextSibling){
+                    conversationStatus = conversationStatus.nextSibling
+                } else if (conversationStatusTemp && conversationStatusTemp.nextSibling) {
+                    conversationStatus = conversationStatusTemp.nextSibling;
+                } else conversationStatus = null
+                
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('span[title]') : null;
                 conversationStatus = conversationStatus ? conversationStatus.getAttribute("title") : null;
                 conversationStatus = conversationStatus && conversationStatus.indexOf(",") == -1 ? conversationStatus : null;
