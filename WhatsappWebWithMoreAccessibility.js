@@ -657,9 +657,7 @@ function activeEvents() {
                 conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
                 conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
 
-                if  (conversationStatus && conversationStatus.nextSibling){
-                    conversationStatus = conversationStatus.nextSibling
-                } else if (conversationStatusTemp && conversationStatusTemp.nextSibling) {
+                if (!conversationStatus && conversationStatusTemp && conversationStatusTemp.nextSibling) {
                     conversationStatus = conversationStatusTemp.nextSibling;
                 } else conversationStatus = null
                 
