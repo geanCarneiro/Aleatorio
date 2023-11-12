@@ -651,16 +651,13 @@ function activeEvents() {
             if (spanAriaLive) {
                 let conversationStatus = document.getElementById("main") ? document.getElementById("main").querySelector("header") : null;
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('[dir="auto"]') : null;
-                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
-                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
-                let conversationStatusTemp = conversationStatus;
-                conversationStatus = conversationStatus ? conversationStatus.parentNode : null;
-                conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
-
-                if (!conversationStatus && conversationStatusTemp && conversationStatusTemp.nextSibling) {
-                    conversationStatus = conversationStatusTemp.nextSibling;
-                } else conversationStatus = null
+                let pai = conversationStatus.parentNode;
+                while(pai.getAttribute("role") != "button"){
+                    conversationStatus = pai;
+                    pai = conversationStatus.parentNode;
+                }
                 
+                conversationStatus = conversationStatus ? conversationStatus.nextSibling : null;
                 conversationStatus = conversationStatus ? conversationStatus.querySelector('span[title]') : null;
                 conversationStatus = conversationStatus ? conversationStatus.getAttribute("title") : null;
                 conversationStatus = conversationStatus && conversationStatus.indexOf(",") == -1 ? conversationStatus : null;
